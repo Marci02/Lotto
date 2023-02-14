@@ -12,6 +12,7 @@ namespace Lotto
 
         static int[] het52 = new int[5];
         static int het;
+        static int[,] hetek = new int[51, 5];
         static void Main(string[] args)
         {
 
@@ -65,18 +66,34 @@ namespace Lotto
 
         private static void NegyedikFeladat()
         {
-            Console.WriteLine("4. feladat");
+            Console.WriteLine($"4. feladat: {het + 1}. hét számai: ");
             AdatokBeolvasasa();
+            AdottHetSzamainakKiirasa();
 
+        }
+
+        private static void AdottHetSzamainakKiirasa()
+        {
+            for (int oszlop = 0; oszlop < 5; oszlop++)
+            {
+                Console.Write($"{hetek[het,oszlop],3}");
+            }
         }
 
         private static void AdatokBeolvasasa()
         {
+            int sor = 0;
             StreamReader be = new StreamReader("lottosz.dat");
 
             while (!be.EndOfStream)
             {
                 string[] a = be.ReadLine().Split(' ');
+                for (int oszlop = 0; oszlop < 5; oszlop++)
+                {
+                    hetek[sor, oszlop] = Convert.ToInt32(a[oszlop]);
+                }
+
+                sor++;
             }
 
             be.Close();
